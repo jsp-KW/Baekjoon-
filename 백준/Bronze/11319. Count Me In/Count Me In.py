@@ -23,3 +23,7 @@ for s in sentence:
 
     print (consonants , answer)
 
+
+# strip()	좌우 모든 공백 (' ', \t, \n)문자열 전체 정리할 때
+# rstrip()	오른쪽 끝만	readline() + 줄바꿈 제거할 때 
+# lstrip()	왼쪽만	필요할 땐 거의 없음 (특수 케이스)

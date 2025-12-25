@@ -1,0 +1,17 @@
+-- 코드를 작성해주세요
+
+WITH RECURSIVE T AS (
+
+    SELECT ID, PARENT_ID, 1 AS LEVEL
+    FROM ECOLI_DATA WHERE PARENT_ID IS NULL
+    
+    
+    UNION ALL
+    
+    SELECT child.ID, child.PARENT_ID , T.LEVEL +1
+    FROM ECOLI_DATA child JOIN T ON 
+    child.PARENT_ID  = T.ID WHERE T.LEVEL < 3
+
+)
+
+SELECT ID FROM T WHERE LEVEL = 3;

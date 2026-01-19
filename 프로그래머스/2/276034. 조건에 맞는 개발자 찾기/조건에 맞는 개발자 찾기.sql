@@ -1,0 +1,7 @@
+-- 코드를 작성해주세요
+
+
+-- python이나 c# 스킬을 가진 개발자의 정보 조회
+
+SELECT DISTINCT(D.ID), D.EMAIL, D.FIRST_NAME, D.LAST_NAME FROM DEVELOPERS D INNER JOIN SKILLCODES S 
+ON (D.SKILL_CODE & S.CODE) = S.CODE WHERE S.NAME IN ('Python', 'C#') ORDER BY D.ID ASC;

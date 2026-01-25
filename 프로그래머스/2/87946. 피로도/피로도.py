@@ -1,25 +1,22 @@
-from itertools import permutations
-
 def solution(k, dungeons):
     
-    answer = -1
+    visited= [False]*(len(dungeons))
     
     # k:현재 피로도
-    # 최소>= 소모
-    for per in permutations(dungeons):
-        now_hp=k
-        temp_res=0
-        for cur in per: #need,consume
-            need, consum = cur
-            if now_hp>= need :
-                now_hp= now_hp-consum
-                temp_res=temp_res+1
-            
-            else:
-                continue
-            
-            answer= max(answer,temp_res)
-            
-                
-            
+    # 최소>= 소모 
+       
+    answer = 0
+    def dfs(cur_hp,step):
+        nonlocal answer
+        answer= max(step,answer)
+        
+        
+        for i in range(0,len(dungeons)):
+            min_hp,lose= dungeons[i]
+            if not visited[i] and cur_hp>= min_hp :
+                visited[i]= True
+                dfs(cur_hp-lose, step+1)
+                visited[i]= False
+
+    dfs(k,0)
     return answer

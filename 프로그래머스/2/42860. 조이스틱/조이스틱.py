@@ -8,7 +8,6 @@ def solution(name):
     
     # A B C D E / F G H I J / K L M N O / P Q R S T/ U V W X Y/ Z
     
-    first_str ="A"*len (name)
     
     # 연속된 구간 찾기
     # NAME에서
@@ -22,14 +21,13 @@ def solution(name):
     # 고치고, 중간에 '연속된 'a'를 만나면, 유턴해서 고칠곳 까지 가기 vs 유턴하지 않고 연속 a 를 뚫고 가서 고치기
     # B A C C 라면, 
     # B 고치고, A 햇을때
-    for i in range (n) :
-        next_idx = i+1
-        while next_idx < n  and name[next_idx] == 'A' :
-            next_idx +=1  # 스킵한 a 연속 후, 고칠 자리
+    for i in range (n) : 
+        next_idx =  i+1
+        while next_idx < n and name[next_idx] =='A' :
+            next_idx +=1
             
-        dist1 = i+ i +(n-next_idx) # 왼쪽 빠구,  I =0, NEXT_IDX =2,  0+ 0 + (4-2) = 2 
-        
-        dist2 = (n-next_idx) + (n-next_idx) + i # 4-2 + 4-2 + 0 = 4
+        dist1 = i+i + (n-next_idx)
+        dist2 = (n-next_idx) + (n- next_idx) + i
         
         min_move = min(min_move, dist1, dist2)
         

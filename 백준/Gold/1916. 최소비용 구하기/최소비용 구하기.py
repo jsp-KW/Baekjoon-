@@ -1,44 +1,48 @@
 import sys
 import heapq
+
+#N개의 도시가 있다
+# M 개의 버스가 있다
+# A번째 도시에서 B번째 도시까지 가는데 버스 비용을 최소화
+# A번째 도시에서 B번째 도시까지가 가는데 최소비용을 출력하자.
+
 N = int(sys.stdin.readline())
+M = int(sys.stdin.readline())
 
-# N 개의 도시 -> M개의 버스
-# A->B 최소화
-# 최소비용
+graph = [[] for _ in range (N+1)]
 
-M = int (sys.stdin.readline())
-
-bus_info = [[] for _ in range (N+1) ]
 for _ in range (M) :
-    arrive_city_num , start_city_num, cost = map(int,sys.stdin.readline().split())
-    #도착 도시, 출발도시 , 비용
-    bus_info[arrive_city_num].append((start_city_num,cost))
+    start,end,cost = map(int,sys.stdin.readline().split())
+    graph[start].append ((cost,end))
+
+start_city, target_city = map(int,sys.stdin.readline().split())
 
 
-target_start, target_arrive = map(int,sys.stdin.readline().split())
-
-# 다익스트라
+q = [(0,start_city)]
 
 INF = float('inf')
 
-distance = [INF] *(N+1)
-distance[target_start] = 0
+distance = [INF]*(N+1)
+distance [start_city] = 0
 
-pq = [(0,target_start)]
+while q :
+    
+    cur_cost, cur_node = heapq.heappop(q)
 
-while pq :
-    cur_cost, cur_city = heapq.heappop(pq) 
-
-    if cur_cost > distance[cur_city] : # 현재 도시의 비용보다 크면, continue
+    if distance[cur_node]  < cur_cost :
         continue
 
-    if cur_city == target_arrive : #같으면 종료
+    if target_city == cur_node :
+        print (distance[cur_node])
         break
 
-    for next_city, edge_cost  in bus_info[cur_city] :
-        next_cost = cur_cost + edge_cost 
-        if next_cost  < distance[next_city] :
-            distance [next_city] = next_cost
-            heapq.heappush(pq, (next_cost,next_city))
+    distance[cur_node] = cur_cost
 
-print(distance[target_arrive])
+    for nxt_cost, nxt_node in graph[cur_node] :
+        temp=cur_cost +nxt_cost
+        
+        if distance[nxt_node] >  temp :
+            distance[nxt_node] = temp
+            heapq.heappush(q, (temp,nxt_node))
+
+

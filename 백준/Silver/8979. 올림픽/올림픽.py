@@ -25,16 +25,19 @@ prev_gold = total[0][1]
 prev_silver =total[0][2]
 prev_bronze =  total[0][3]
 
+same_cnt = 1
 ranking = [(1,total[0][0]),]
 for i in range (1,N) :
     target_gold, target_silver, target_broze =  total[i][1],total[i][2], total[i][3]
 
     if target_gold == prev_gold  and target_silver == prev_silver and target_broze == prev_bronze :
         ranking.append ((rank,total[i][0]))
-        rank+=1
+        same_cnt +=1
+        
     else :
-        rank+=1
+        rank = rank +same_cnt
         ranking.append((rank,total[i][0]))
+        same_cnt=1
     
     prev_gold = target_gold
     prev_silver = target_silver

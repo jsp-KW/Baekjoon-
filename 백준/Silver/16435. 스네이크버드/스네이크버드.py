@@ -15,5 +15,7 @@ heights.sort()
 for h in heights :
     if h <= L  :
         L= L+1 
+    else:
+        break
 
 print(L)

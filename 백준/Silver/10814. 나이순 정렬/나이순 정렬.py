@@ -1,18 +1,17 @@
 import sys
 
-n = int (sys.stdin.readline())
+N  = int(sys.stdin.readline())
+# 나이순, 먼저가입한 사람이 앞에 오는 순서대로 정렬
 
+cnt = 0
 people = []
-register_cnt = 0
-for _ in range (n) :
-    line =list( map(str,sys.stdin.readline().split()))
-    age = int(line[0])
-    name = line[1]
-    register_cnt +=1
-    people.append((age,name,register_cnt))
+for _ in range (N) :
+    age, name = map(str, sys.stdin.readline().split())
+    people.append((int(age),cnt,name))
+    cnt +=1
 
+people.sort(key= lambda x : (x[0],x[1]))
 
-people.sort(key= lambda x: (x[0],x[2]))
+for age,_,name in people :
+    print(age, name)
 
-for tup in people :
-    print (tup[0],tup[1])

@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+import sys
+
+MOD = 100000007
+
+n = int(sys.stdin.readline())
+
+# n*3 형태
+states = ["000","001","010","100","101"]
+
+def can_put(prev, cur) :
+	for i in range (3) :
+		if prev[i] == '1' and cur[i] =='1':
+			return False
+	return True
+
+
+dp = [[0]*(5) for _ in range (n)]
+
+for i in range (5) :
+	dp[0][i] = 1 
+
+for row in range (1,n) :
+	for cur_idx in range(5) :
+		cur = states[cur_idx]
+
+		for prev_idx in range (5) :
+			prev = states[prev_idx]
+
+			if can_put(prev, cur) :
+				dp[row][cur_idx] += dp[row-1][prev_idx]
+				dp[row][cur_idx] %= MOD
+
+print(sum(dp[n-1])%MOD)

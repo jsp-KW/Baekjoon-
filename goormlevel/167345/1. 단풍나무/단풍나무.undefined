@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+import sys
+
+n = int(sys.stdin.readline())
+board = [[] for _ in range (n)]
+
+for i in range (n) :
+	temp = list(map(int,sys.stdin.readline().split()))
+	board[i].extend(temp)
+
+def check (ground) :
+	for i in range(n) :
+		for j in range (n) :
+			if ground[i][j] != 0 :
+				return False
+	return True
+day= 0
+dy = [-1,1,0,0]
+dx = [0,0,-1,1]
+
+def get_target (ground) :
+	cordinates = []
+	for i in range (n) :
+		for j in range (n) :
+			if ground[i][j] != 0 :
+				cordinates.append((i,j))
+	return cordinates
+	
+def get_deep_copy (arr) :
+	return [row[:] for row in arr]
+
+copy_board = get_deep_copy(board)
+while True :
+
+	if check(copy_board) :
+		print(day) 
+		break
+	
+	standard_board = get_deep_copy(copy_board)
+
+	target = get_target(copy_board) 
+	for t in target :
+		y,x = t 
+		count_arround = 0
+		for i in range (4) :
+			new_y,new_x = y +dy[i] , x +dx[i]
+			if 0<=new_y <n and 0<= new_x <n :
+				if standard_board[new_y][new_x] ==0 :
+					count_arround +=1
+					
+		if standard_board[y][x] - count_arround <=0 :
+			copy_board[y][x] = 0

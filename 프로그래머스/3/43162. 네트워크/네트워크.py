@@ -1,21 +1,19 @@
 def solution(n, computers):
-    # i번 컴퓨터 j번 컴퓨터 연결되어있음 -> computers[i][j] =1
-    def dfs (node) :
-        visited[node] = True
-        for j in range (n) :
-            if computers[node][j] ==1 and not visited[j] :
-                visited[j] = True
-                dfs(j)
-
-        
-    answer = 0
-    visited = [False] * n
-    for i in range (0,n):
-        if not visited[i]  :
-            answer+=1
-            dfs(i)
-        
+    # A->B 연결 ->B->C연결 일 경우 A->C도 연결이 가능함
     
-     
-
+    visited = [False]*(n)  
+    
+    def dfs (start) : 
+        visited[start] = True
+        
+        for nxt in range (0, n) :
+            if not visited[nxt] and computers[start][nxt] ==1:
+                dfs(nxt)
+                
+    answer= 0
+    for i in range (0,n) :
+        if not visited[i] :
+            dfs(i)
+            answer+=1
+        
     return answer

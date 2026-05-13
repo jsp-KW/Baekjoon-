@@ -3,33 +3,34 @@ import java.util.*;
 class Solution {
     public String solution(int[] numbers) {
         String answer = "";
+        // 정수를 이어붙여 만들수 있는 가장 큰 수
         
-
-        String [] str = new String[numbers.length];
+        String [] nums = new String [numbers.length];
         
-        for (int i =0; i<str.length; i++) {
-            str[i] = String.valueOf(numbers[i]);
+        for (int i =0; i< numbers.length; i++) {
+            nums[i] = String.valueOf(numbers[i]);
+        }
+        
+        //  compare (a,b) -> 값 양수인 경우  b a 순
+        //  음수인 경우 a b 순
+        //  0 이면 그대로
+        
+        
+        Arrays.sort (nums, (a,b)-> (b+a).compareTo(a+b)); // 610 > 106 -> 양수 리턴  a= 10 , b =6  ->즉  b a로 바뀜
+        
+        if (nums[0].equals("0")) {
+            return "0";
         }
         
         
-        Arrays.sort(str, new Comparator<String>(){
-           @Override
-            public int compare(String a, String b) {
-                return(b+a).compareTo(a+b); // 내림차순 정렬 (o2+o1).compareTo(o1+o2); 
-                                            //오름차순 정렬 (o1+o2).compareTo(o1+o2);
-            }  // o2+o1이 o1+o2보다 클 경우 자리를 바꿔준다.
-                
-        });
+        StringBuilder sb = new StringBuilder ();
         
-        // 만약  0000000 이런 답이 나올경우.
-        if(str[0].equals("0")) {
-            answer +="0";
+        for (String s : nums) {
+            sb.append(s);
         }
-        
-        else {
-            for (String s : str) 
-                answer += s;
-        }
+        answer = sb.toString();
         return answer;
+    
     }
+    
 }

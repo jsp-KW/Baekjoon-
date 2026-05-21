@@ -63,13 +63,10 @@ def solution(n, edge):
         return
 
     bfs(1)
-    
-    print ("distance", distance)
+
     cnt =0
     max_val = max(distance)
     for i in range (1,n+1) :
         if distance[i] == max_val :
             cnt+=1
-
-
     return cnt

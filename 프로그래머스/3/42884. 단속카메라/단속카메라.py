@@ -5,17 +5,28 @@ def solution(routes):
     
     answer = 0
     # 지점x가 최대한 다른 경로들하고 많이 겹쳐야함
-    # 
+    # 정렬후, 나가는 곳 기준으로 카메라 박느낟
     
-    routes.sort (key = lambda x : (x[1]))
-    camera_loc = -30001
+#     routes.sort (key = lambda x : (x[1]))
+#     camera_loc = -30001
     
-    for r in routes :
-        if r[0] <= camera_loc  and camera_loc <= r[1] :
-            continue
-        else :
-            answer+=1
-            camera_loc = r[1]
+#     for r in routes :
+#         if r[0] <= camera_loc  and camera_loc <= r[1] :
+#             continue
+#         else :
+#             answer+=1
+#             camera_loc = r[1]
             
     
+#     return answer
+    #  진입 <= 카메라 위치 <= 진출 여야 찍힘
+    
+    routes.sort(key= lambda x: (x[1]))
+    camera_loc = -30001
+    
+    for r in routes:
+        if camera_loc < r[0] :
+            camera_loc = r[1]
+            answer+=1
+            
     return answer

@@ -5,20 +5,41 @@ def solution(priorities, location):
     # 몇번째로 실행되는지 알고싶은 프로세스의 위치 location
     # 
     
-    answer=0
-    queue = [(index, weight) for index,weight in enumerate(priorities)]
+#     answer=0
+#     queue = [(index, weight) for index,weight in enumerate(priorities)]
    
-    while True :
-        temp= queue.pop(0)
-        if any(temp[1]< q[1] for q in queue) :
-            queue.append(temp)
+#     while True :
+#         temp= queue.pop(0)
+#         if any(temp[1]< q[1] for q in queue) :
+#             queue.append(temp)
+#         else:
+#             answer+=1
+#             if temp[0] == location :
+#                 break
+    
+    
+    
+    
+    answer = 0
+    q = [(index, weight) for index, weight in enumerate(priorities)]
+    
+    while True:
+        temp = q.pop(0)
+        if any(temp[1] < t[1] for t in q) :
+            q.append(temp)
         else:
             answer+=1
-            if temp[0] == location :
-                break
-                
-    return answer
-        
+            if temp[0] == location:
+                return answer
+    
+    
+    
+    
+    
+    
+    
+    
+          
         
         
     

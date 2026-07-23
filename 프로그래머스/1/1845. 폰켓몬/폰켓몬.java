@@ -1,16 +1,57 @@
 import java.util.*;
 class Solution {
     public int solution(int[] nums) {
-        int answer =0;
-        int get = nums.length /2 ;
+//         int answer =0;
+//         int get = nums.length /2 ;
         
-        HashSet <Integer> set = new HashSet <>();
+//         HashSet <Integer> set = new HashSet <>();
         
-        for (int num : nums) {
-            set.add(num);
-        }
-        answer = Math.min(set.size(), get);
+//         for (int num : nums) {
+//             set.add(num);
+//         }
+//         answer = Math.min(set.size(), get);
         
-	    return answer;
+// 	    return answer;
+//     }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    int answer = 0;
+    int n = nums.length;
+    int select_n = n/2;    
+    
+    HashSet <Integer> set = new HashSet<>();
+        
+    for (int num : nums) {
+        set.add(num);
+    }
+        
+    if (set.size() <= select_n) {
+        answer = set.size();
+    }else {
+        answer = select_n;
+    }
+        
+        
+        
+        
+        
+        
+        
+    return answer;
+        
     }
 }

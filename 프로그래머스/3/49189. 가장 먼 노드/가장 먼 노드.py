@@ -37,36 +37,50 @@ def solution(n, edge):
 
 
 
-    graph = [[] for _ in range(n+1)]
+
+
+
+
+
+    answer = 0
     
-    for e in edge:
-        start = e[0]
-        end = e[1]
+    graph = [[] for _ in range (n+1)]
+    distance = [-1]*(n+1)
+    
+    for v in edge:
+        start = v[0]
+        end = v[1]
         graph[start].append(end)
         graph[end].append(start)
         
-    distance = [-1]*(n+1)
     
-    def bfs (start) :
-        cur= start
-        distance[cur] = 0
+    q = deque([1])
+    distance[1] = 0
+    
+    while q :
+        cur_node = q.popleft()
         
-        q = deque([start])
+        for nxt_node in graph[cur_node] :
+            if distance[nxt_node] == -1 :
+                distance[nxt_node] = distance[cur_node] +1
+                q.append(nxt_node)
         
-        while q :
-            cur = q.popleft()
-            for nxt in graph[cur] :
-                if distance[nxt] == -1 :
-                    distance[nxt] = distance[cur] +1
-                    q.append(nxt)
-        
-        return
-
-    bfs(1)
-
-    cnt =0
+    
     max_val = max(distance)
+    
     for i in range (1,n+1) :
         if distance[i] == max_val :
-            cnt+=1
-    return cnt
+            answer+=1
+        
+    return answer
+
+
+
+
+
+
+
+
+
+
+

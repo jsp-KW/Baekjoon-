@@ -1,37 +1,41 @@
 def solution(genres, plays):
     answer = []
     
+    
+    # 1. 속한 노래가 많이 재생된 장르 먼저
+    # 2. 장르 내에서 많이 재생된 노래 먼저
+    # 3. 장르 내에서 재생횟수 같으면 고유번호 낮은 노래 순서
+    
     get_max_genres = {}
     
-    for i in range (len(genres)):
+    for i in range (0, len(genres)) :
+        if genres[i] not in get_max_genres :
+            get_max_genres[genres[i]] =  plays[i]
+        else:
+            get_max_genres[genres[i]]  += plays[i]
+    
+    
+    temp = list(get_max_genres.items())
+    temp.sort(key= lambda x : -x[1])
+    
+    max_genres = temp[0][0]
+    
+ 
+    
+    for genre, play in temp :
+        first_cands = []
+
+        for i in range (0,len(genres)) :
+            if genres[i] == genre :
+                first_cands.append((i,plays[i]))
         
-        if genres[i] not in get_max_genres:
-            get_max_genres[genres[i]] =plays[i]
-        else :
-            get_max_genres[genres[i]] +=plays[i]
-    
-    max_key = max(get_max_genres, key=get_max_genres.get)
-    
-    
-    song_table = {}
-
-    for i in range(len(genres)):
-        if genres[i] not in song_table:
-            song_table[genres[i]] = []  
-        song_table[genres[i]].append((i,plays[i])) 
-
-    for genre in song_table:
-        song_table[genre].sort(key=lambda x: (-x[1], x[0])) 
-    
-    sorted_genres = sorted(get_max_genres.items(), key=lambda x: x[1], reverse=True)
-
-    print ("song_table", song_table)
-    print ("sorted_genres", sorted_genres)
-
-    for gen, _ in sorted_genres:
-        for idx, _ in song_table[gen][:2]:
-            if idx not in answer :
-                answer.append(idx)
+        first_cands.sort(key= lambda x : (-x[1], x[0]))
         
+        if len(first_cands) <2 :
+            answer.append (first_cands[0][0])
+        else:
+            for i in range (2) :
+                answer.append(first_cands[i][0])
+    
     return answer
 

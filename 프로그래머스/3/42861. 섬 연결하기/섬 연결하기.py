@@ -42,38 +42,86 @@ def solution(n, costs):
     
     
     
+#     graph = [[] for _ in range (n)]
+    
+#     for c in costs:
+#         start,end,cost= c
+#         graph[start].append((cost,end))
+#         graph[end].append((cost,start))
+        
+#     visited = [False]*(n)
+    
+    
+#     def prim(start):
+        
+#         cnt=0
+#         total_cost =0
+#         q= [(0, start)]
+
+#         while q:
+#             cur_cost, cur_node = heapq.heappop(q)
+        
+#             if visited[cur_node] :
+#                 continue
+            
+#             total_cost += cur_cost
+#             visited[cur_node]= True
+#             cnt+=1
+#             if cnt == n :
+#                 return total_cost 
+            
+
+#             for nxt_cost, nxt_node in graph[cur_node]:
+#                 if not visited[nxt_node]:
+#                     heapq.heappush(q, (nxt_cost,nxt_node))
+
+        
+#     return prim(0)
+
+    
+    
     graph = [[] for _ in range (n)]
     
-    for c in costs:
-        start,end,cost= c
+    for c in costs :
+        start = c[0]
+        end = c[1]
+        cost = c[2]
+        
         graph[start].append((cost,end))
         graph[end].append((cost,start))
         
-    visited = [False]*(n)
-    
-    
-    def prim(start):
         
-        cnt=0
-        total_cost =0
-        q= [(0, start)]
+    visited = [False] *(n)
+    
 
-        while q:
-            cur_cost, cur_node = heapq.heappop(q)
+    def prim(start) :
+        q = [(0, start)]
+        cnt = 0
+        total_cost = 0
         
+        while q :
+            cur_cost, cur_node = heapq.heappop(q)
+            
             if visited[cur_node] :
                 continue
             
-            total_cost += cur_cost
-            visited[cur_node]= True
             cnt+=1
+            visited[cur_node] = True
+            total_cost += cur_cost
+            
             if cnt == n :
                 return total_cost 
             
-
-            for nxt_cost, nxt_node in graph[cur_node]:
+            for nxt_cost,nxt_node in graph[cur_node] :
                 if not visited[nxt_node]:
-                    heapq.heappush(q, (nxt_cost,nxt_node))
+                    heapq.heappush(q, (nxt_cost, nxt_node))
+    
+    answer =prim(0)
+    
 
-        
-    return prim(0)
+    return answer
+
+
+
+
+

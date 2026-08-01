@@ -68,62 +68,63 @@ class Solution {
         // 마을 개수 N개
         // 음식 주문을 받을 수 있는 마을의 개수
         
-        int answer = 0;
+       
         
-        ArrayList<int[]> [] graph = new ArrayList [N+1];
+        int answer =0;
+        ArrayList<int[]> []graph= new ArrayList[N+1];
         
-        for (int i =0;i<=N; i++) {
+        for (int i =0; i<graph.length; i++) {
             graph[i] = new ArrayList<>();
         }
         
         for (int [] r : road) {
-            int start = r[0];
-            int end = r[1];
+            int a = r[0];
+            int b = r[1];
             int cost = r[2];
-            
-            graph[start].add (new int [] {cost, end});
-            graph[end].add(new int [] {cost, start});
-            
+            graph[a].add(new int [] {cost, b});
+            graph[b].add(new int [] {cost, a});
         }
         
-        PriorityQueue <int [] > pq = new PriorityQueue<>((a,b) -> Integer.compare (a[0],b[0]));
-        int INF = Integer.MAX_VALUE;
-        int distance[] = new int [N+1];
-        int start = 1;
+        int distance [] = new int[N+1];
+        int max_val = Integer.MAX_VALUE;
         
-        Arrays.fill(distance, INF);
-        distance[start] = 0;
-        pq.offer (new int [] {0,1});
+        Arrays.fill(distance, max_val);
+        
+        PriorityQueue <int[]> pq = new PriorityQueue <>( (a,b)-> (a[0]-b[0]));
+        
+        pq.offer(new int []  {0,1});
+        distance[1] =0;
         
         while (!pq.isEmpty()) {
-            int [] cur = pq.poll();
-            int cur_cost = cur[0];
-            int cur_node = cur[1];
+            int [] temp = pq.poll();
+            int cur_cost = temp[0];
+            int cur_node = temp[1];
             
-            if (distance[cur_node] < cur_cost) {
+            
+            if (distance[cur_node] < cur_cost)  {
                 continue;
             }
-            
-            distance[cur_node] = cur_cost;
-            for (int [] nxt : graph[cur_node]) {
-                int nxt_cost = nxt[0];
-                int nxt_node = nxt[1];
+          
+            for (int [] next : graph[cur_node]) {
+                int next_cost = next[0];
+                int next_node = next[1];
                 
-                if (distance[nxt_node] > nxt_cost + distance[cur_node]) {
-                    int total_cost =  nxt_cost + distance[cur_node];
-                    distance[nxt_node] = total_cost;
-                    pq.offer(new int [] {total_cost, nxt_node});
+                int total_cost = next_cost + distance[cur_node];
+                
+                if (total_cost < distance[next_node]) {
+                    distance[next_node] = total_cost;
+                    pq.offer (new int [] {total_cost, next_node}); 
                 }
             }
+            
         }
         
-        for(int i =0; i<N+1; i++) {
-            if( distance[i] <=K) {
-                answer+=1;
+        
+        for (int i =1; i <N+1; i++) {
+            if (distance[i] <= K) {
+                answer +=1;
             }
         }
-        
-        
         
         
         return answer;

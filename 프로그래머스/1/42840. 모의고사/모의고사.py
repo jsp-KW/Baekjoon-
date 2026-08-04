@@ -3,32 +3,24 @@ def solution(answers):
     
     student1 = [1,2,3,4,5]
     student2 = [2,1,2,3,2,4,2,5]
-    student3 = [3,3,1,1,2,2,4,4,5,5] # 1000 세트
+    student3 = [3,3,1,1,2,2,4,4,5,5] 
     
+    cnt1, cnt2,cnt3 = 0,0,0
+    for i,correct in enumerate (answers) : # 최대 길이
+        if answers[i] == student1[i % len(student1)]:
+            cnt1 +=1
+        if answers[i] == student2[i % len(student2)]:
+            cnt2 +=1
+        
+        if answers[i] == student3[i % len(student3)]:
+            cnt3 +=1
+    temp = [cnt1,cnt2,cnt3]
     
-    # 10000 문제
+    max_val = max(temp)
     
-    
-    # answers * 2000 세트
-    
-    s1 = 2000 * (student1)
-    s2 = 1250 * (student2)
-    s3 = 1000 * (student3)
-    
-    s1_res = [x-y for x,y in zip(answers,s1)]
-    s2_res = [x-y for x,y in zip(answers,s2)]
-    s3_res = [x-y for x,y in zip(answers,s3)]
-    
-    res1 = s1_res.count(0)
-    res2 = s2_res.count(0)
-    res3 = s3_res.count(0)
-    
-    max_ans = max(res1,res2,res3)
-    
-    temp = [res1,res2,res3]
-
-    for i in range (3) :
-        if max_ans == temp[i] :
+    for i in range (0, 3) :
+        if temp[i] == max_val :
             answer.append(i+1)
+        
     
     return answer

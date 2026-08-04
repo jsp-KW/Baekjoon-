@@ -2,57 +2,42 @@ from collections import deque
 
 def solution(n, wires):
     
+    answer = float('inf')
     graph = [[] for _ in range (n+1)]
-
-    
     
     for w in wires:
+        start = w[0]
+        end = w[1]
         
-        start, end = w
         graph[start].append(end)
         graph[end].append(start)
-        
+ 
+    
     
     def bfs (start, end) :
+           
         visited = [False] *(n+1)
-        visited[start] =True
+        visited[start] = True
         q = deque([start])
-        while q:
-            cur = q.popleft()
-
+        
+        
+        while q :
+            cur = q.popleft ()
+            
             for nxt in graph[cur] :
-                if( (cur == end and nxt== start) or (cur == start  and nxt == end) ):
-                    continue
-                if not visited[nxt] :
-                    visited[nxt] = True
+                if not visited[nxt] and nxt != end:
                     q.append(nxt)
+                    visited[nxt] = True
         return sum(visited)
     
-    answer=  float('inf')
-    for connection in wires :
-        start, end = connection
-        
-        res = bfs (start, end)
-        temp = n- res
-        answer = min(answer, abs(res-temp))
-        
+    for w in wires:
+        start, end = w[0],w[1]
+        res = bfs(start,end)
+        answer = min (answer, abs(res - (n-res)))
         
     return answer
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
+        
     
     
     

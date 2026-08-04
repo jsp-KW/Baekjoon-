@@ -8,35 +8,40 @@ def solution(cacheSize, cities):
     # 가장 마지막에 사용한거 앞으로 빼고, 새로들어온건 뒤로 넣기
     
     # 대소문자 구문 없애기
-    new_arr= []
-    for city in cities: 
+
+    
+    # hit 일경우 1
+    # miss 일 경우 5
+    
+    new_arr = []
+    for city in cities:
         new_arr.append(city.lower())
         
     
-    def LRU(size, arr) :
+    def LRU (size, arr) :
         
-        if size == 0 :
-            return len(arr)*5
-        
+        total_time = 0
         buffer = []
-        time = 0
-        cnt = 0
+        
+        if size ==0 :
+            return 5 * len(arr)
+        
         for city in arr :
-            if city in buffer:  
+            if city in buffer :
+                total_time += 1
                 buffer.remove(city)
                 buffer.append(city)
-                time +=1
-            else: # miss
-                if len(buffer) == size : 
-                    buffer = buffer[1:size]
+            else:
+                total_time += 5
+                if len(buffer) <size :
                     buffer.append(city)
                 else:
-                    buffer.append(city)
-                    
-                time+=5
-                
-        return time
-    
-    answer = LRU(cacheSize,new_arr)
+                    buffer= buffer[1:]
+                    buffer.append (city)
         
+        return total_time
+    
+    answer=  LRU(cacheSize, new_arr)        
+                
+                
     return answer

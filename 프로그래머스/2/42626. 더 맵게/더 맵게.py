@@ -1,21 +1,20 @@
 import heapq
 
-def solution(scoville, K):
+def solution(scovile, K):
     answer = 0
+    # K이상 될때까지 반복해서 섞기
+    heapq.heapify(scovile)
     
-    # 가장 맵지 않은거 +  (두 번째로 맵지않은 거 * 2) = 섞은 음식.
-    heapq.heapify(scoville)
     
-    while scoville and scoville[0] < K:
-        if len(scoville) < 2 :
-            return -1
-        
-        
-        first = heapq.heappop(scoville)
-        second = heapq.heappop(scoville)
-        temp = first + (second*2)
-        
-        heapq.heappush(scoville, temp)
+    while len(scovile) >=2 and scovile[0] <K:
+        first = heapq.heappop(scovile)
+        second = heapq.heappop(scovile)
+        temp = first + (second * 2)
+        heapq.heappush(scovile, temp)
         answer+=1
-            
-    return answer
+    
+    
+    if scovile[0] >= K :
+        return answer
+    else:
+        return -1

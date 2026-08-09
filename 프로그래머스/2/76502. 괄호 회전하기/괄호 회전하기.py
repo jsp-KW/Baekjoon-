@@ -6,38 +6,36 @@ def solution(s):
     # 올바른 괄호 문자열일 경우 개수 +1
     
     cnt = len(s)
-
-    # 첫번째 경우 체크
     
-    put = ['{', '[', '(']
-    get = ['}', ']', ')']
+    put = ["(", "[", "{"]
+    get = [")","]","}"]
     
-    
-    def check (target) :
-        stack = [] 
-
-        for t in target :
-            if t in put :
-                stack.append(t)
-
+    def check_right (target) :
+        stack = []
+        for ch in target :
+            if ch in put :
+                stack.append(ch)
             else:
-                if t in get and stack :
-                    if stack[-1] == put[get.index(t)] :
-                        stack.pop()
-                    else :
-                        stack.append(t)
-                else :
-                    stack.append(t)
-
+                if stack and stack[-1] == put[get.index(ch)] :
+                    stack.pop()
+                else:
+                    return False
+        
         if not stack :
             return True
-
+        else :
+            return False
+        
     
-
-    # 두번째부터 끝까지 체크
-    for i in range (0, cnt) :
-        target = s[i:] + s[:i]
-        if check(target) :
+    for i in range (cnt) :
+        left= s[0:i]
+        right = s[i:]
+        temp = right + left
+        check_res = check_right (temp)
+        if not check_res :
+            continue
+        else:
             answer +=1
+
 
     return answer

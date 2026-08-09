@@ -1,6 +1,6 @@
 # [level 4] 보호소에서 중성화한 동물 - 59045 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59045?language=mysql) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59045) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 05월 22일 14:09:00
+2026년 08월 09일 14:03:23
 
 ### 문제 설명
 

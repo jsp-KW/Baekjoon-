@@ -1,19 +1,33 @@
+from collections import deque
 def solution(n, computers):
     # A->B 연결 ->B->C연결 일 경우 A->C도 연결이 가능함
     
-    visited = [False]*(n)  
+    answer =0
     
-    def dfs (start) : 
+    visited = [False]*(n+1)
+    graph = [[] for _ in range (n+1)]
+    
+    for i in range (0, len(computers)) :
+        start = i+1
+        for j in range (0, len(computers[i])) :
+            if computers[i][j] == 1 and i!=j:
+                graph[i+1].append(j+1)
+    
+    
+    def bfs (start) :
         visited[start] = True
-        
-        for nxt in range (0, n) :
-            if not visited[nxt] and computers[start][nxt] ==1:
-                dfs(nxt)
-                
-    answer= 0
-    for i in range (0,n) :
+        q = deque([start])
+        while q :
+            cur = q.popleft ()
+            for nxt in graph[cur] :
+                if not visited[nxt] :
+                    visited[nxt] = True
+                    q.append(nxt)
+        return True
+    
+    for i in range (1,n+1) :
         if not visited[i] :
-            dfs(i)
-            answer+=1
-        
+            if bfs(i) :
+                answer +=1
     return answer
+    
